@@ -1,0 +1,47 @@
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-image: url('fondo.jfif'); 
+    background-repeat: repeat; 
+    background-size: 300px 300px; 
+    display: flex;
+    justify-content: center;
+}
+
+h1, h2, h3, p {
+    color: white;
+}
+main {
+    height: fit-content;
+    width: 60rem;
+}
+.cuadricula {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); 
+    gap: 16px;
+}
+.cuadricula-item {
+    min-width: 0; 
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: darkgreen;
+    border-radius: 16px;
+    text-align: center;
+    padding: 1rem;
+    border: white 2px solid;
+    box-sizing: border-box; 
+    justify-content: center;
+    overflow: hidden; 
+}
+.cuadricula-item > img {
+    width: 100%;
+    height: auto;
+    max-width: 100%; 
+}
+.cuadricula-item.seleccionado {
+    outline: 4px solid #00ff00; /* Ajusta el grosor (4px) y color a tu gusto */
+    outline-offset: 2px;       /* Opcional: separa un poco el outline del borde */
+}
