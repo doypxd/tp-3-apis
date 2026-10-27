@@ -36,12 +36,62 @@ main {
     justify-content: center;
     overflow: hidden; 
 }
-.cuadricula-item > img {
+
+.detalles {
+    min-width: 0; 
     width: 100%;
-    height: auto;
-    max-width: 100%; 
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(157, 255, 157);
+    border-radius: 16px;
+    text-align: center;
+    padding: 1rem;
+    border: rgb(0, 255, 21) 2px outset;
+    box-sizing: border-box; 
+    justify-content: center;
+    overflow: hidden; 
 }
+
+.detalles p {
+    color: black;
+}
+.detalles h3 {
+    color: black;
+}
+
+.detalles .block {
+    width:30%
+}
+
+.detalles > p {
+    width:70%;
+    height: 185px;
+    align-content: center;
+}
+
+.detalles img {
+    filter: drop-shadow(0px 0px 5px #000000);
+    width: 70%;
+    margin-bottom: 1rem;
+}
+
+.cuadricula-item img {
+    width: 60%;
+    height: auto;
+    max-width: 120px;
+    max-height: 120px;
+    object-fit: contain; 
+  }
 .cuadricula-item.seleccionado {
     outline: 4px solid #00ff00; /* Ajusta el grosor (4px) y color a tu gusto */
     outline-offset: 2px;       /* Opcional: separa un poco el outline del borde */
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.block {
+    display: block;
 }
