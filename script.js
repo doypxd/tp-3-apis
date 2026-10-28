@@ -27,21 +27,74 @@ contenedorDeportes.addEventListener('click', (event) => {
 });
 
 async function mostrarDeportes() {
-  const deportesFetch = await fetch("https://www.thesportsdb.com/api/v1/json/123/all_sports.php")
-  const deportes = await deportesFetch.json()
+  const deportes = [ // Como la API solo expone dos deportes debo usar IA con el HTML del selector de deportes de su demostración de la API para tener todos los deportes
+    { "nombre": "soccer", "icono": "/images/icons/svg/sports/soccer.svg" },
+    { "nombre": "motorsport", "icono": "/images/icons/svg/sports/motorsport.svg" },
+    { "nombre": "fighting", "icono": "/images/icons/svg/sports/fighting.svg" },
+    { "nombre": "baseball", "icono": "/images/icons/svg/sports/baseball.svg" },
+    { "nombre": "basketball", "icono": "/images/icons/svg/sports/basketball.svg" },
+    { "nombre": "american-football", "icono": "/images/icons/svg/sports/american-football.svg" },
+    { "nombre": "ice-hockey", "icono": "/images/icons/svg/sports/ice-hockey.svg" },
+    { "nombre": "golf", "icono": "/images/icons/svg/sports/golf.svg" },
+    { "nombre": "rugby", "icono": "/images/icons/svg/sports/rugby.svg" },
+    { "nombre": "tennis", "icono": "/images/icons/svg/sports/tennis.svg" },
+    { "nombre": "cricket", "icono": "/images/icons/svg/sports/cricket.svg" },
+    { "nombre": "cycling", "icono": "/images/icons/svg/sports/cycling.svg" },
+    { "nombre": "australian-football", "icono": "/images/icons/svg/sports/australian-football.svg" },
+    { "nombre": "esports", "icono": "/images/icons/svg/sports/esports.svg" },
+    { "nombre": "volleyball", "icono": "/images/icons/svg/sports/volleyball.svg" },
+    { "nombre": "netball", "icono": "/images/icons/svg/sports/netball.svg" },
+    { "nombre": "handball", "icono": "/images/icons/svg/sports/handball.svg" },
+    { "nombre": "snooker", "icono": "/images/icons/svg/sports/snooker.svg" },
+    { "nombre": "field-hockey", "icono": "/images/icons/svg/sports/field-hockey.svg" },
+    { "nombre": "darts", "icono": "/images/icons/svg/sports/darts.svg" },
+    { "nombre": "athletics", "icono": "/images/icons/svg/sports/athletics.svg" },
+    { "nombre": "badminton", "icono": "/images/icons/svg/sports/badminton.svg" },
+    { "nombre": "climbing", "icono": "/images/icons/svg/sports/climbing.svg" },
+    { "nombre": "equestrian", "icono": "/images/icons/svg/sports/equestrian.svg" },
+    { "nombre": "gymnastics", "icono": "/images/icons/svg/sports/gymnastics.svg" },
+    { "nombre": "shooting", "icono": "/images/icons/svg/sports/shooting.svg" },
+    { "nombre": "extreme-sports", "icono": "/images/icons/svg/sports/extreme-sports.svg" },
+    { "nombre": "table-tennis", "icono": "/images/icons/svg/sports/table-tennis.svg" },
+    { "nombre": "multi-sports", "icono": "/images/icons/svg/sports/multi-sports.svg" },
+    { "nombre": "watersports", "icono": "/images/icons/svg/sports/watersports.svg" },
+    { "nombre": "weightlifting", "icono": "/images/icons/svg/sports/weightlifting.svg" },
+    { "nombre": "skiing", "icono": "/images/icons/svg/sports/skiing.svg" },
+    { "nombre": "skating", "icono": "/images/icons/svg/sports/skating.svg" },
+    { "nombre": "wintersports", "icono": "/images/icons/svg/sports/wintersports.svg" },
+    { "nombre": "lacrosse", "icono": "/images/icons/svg/sports/lacrosse.svg" },
+    { "nombre": "gambling", "icono": "/images/icons/svg/sports/gambling.svg" },
+    { "nombre": "gaelic", "icono": "/images/icons/svg/sports/gaelic.svg" }
+  ]
   let htmlDeportes = "";
-  deportes.sports.forEach(element => {
-    htmlDeportes += `
-            <article class="cuadricula-item" data-id="${element.strSport}">
-                <div>
-                <img src="${element.strSportIconGreen}">
-                <h3>${element.strSport}</h3>
-                </div>
-            </article>
-        `
-  });
+  deportes.forEach(deporte => {
+  htmlDeportes += `
+             <article class="cuadricula-item" data-id="${deporte.nombre}">                 <div>
+                 <img src="https://thesportsdb.com${deporte.icono}">
+                 <h3>${deporte.nombre.charAt(0).toUpperCase() + deporte.nombre.slice(1)}</h3>
+                 </div>
+             </article>
+  `
+  })
   contenedorDeportes.innerHTML = htmlDeportes
 }
+
+// async function mostrarDeportes() {
+//   const deportesFetch = await fetch("https://www.thesportsdb.com/api/v1/json/123/all_sports.php")
+//   const deportes = await deportesFetch.json()
+//   let htmlDeportes = "";
+//   deportes.sports.forEach(element => {
+//     htmlDeportes += `
+//             <article class="cuadricula-item" data-id="${element.strSport}">
+//                 <div>
+//                 <img src="${element.strSportIconGreen}">
+//                 <h3>${element.strSport}</h3>
+//                 </div>
+//             </article>
+//         `
+//   });
+//   contenedorDeportes.innerHTML = htmlDeportes
+// }
 async function mostrarLigas() {
   const paises = ["England", "Spain", "Italy", "Germany", "France", "Portugal"];
   // La API no es tan permisiva, solo da hasta 10 items salvo si pago,
@@ -50,7 +103,7 @@ async function mostrarLigas() {
 
   for (const pais of paises) {
     let ligasFetch;
-    if (deporteActual === "Soccer") {
+    if (deporteActual === "soccer") {
       ligasFetch = await fetch("https://www.thesportsdb.com/api/v1/json/123/search_all_leagues.php?s=" + deporteActual + "&c=" + pais);
     } else {
       ligasFetch = await fetch("https://www.thesportsdb.com/api/v1/json/123/search_all_leagues.php?s=" + deporteActual);
@@ -70,7 +123,10 @@ async function mostrarLigas() {
             </article>
         `
     });
-    if (!(deporteActual === "Soccer")) {
+    if (!ligasFetch.ok) {
+      alert("Error " + ligasFetch.status);
+    }
+    if (!(deporteActual === "soccer")) {
       break;
     };
   }
@@ -81,6 +137,9 @@ async function mostrarLigas() {
 async function detallesLiga(id) {
   const ligaFetch = await fetch("https://www.thesportsdb.com/api/v1/json/123/lookupleague.php?id=" + id)
   const data = await ligaFetch.json();
+  if (!ligaFetch.ok) {
+    alert("Error " + ligaFetch.status);
+  }
   if (!data.leagues) {
     detalles.innerHTML = `<p>No se encontró la liga con el ID ${id}</p>`;
     return;
@@ -108,15 +167,19 @@ async function detallesLiga(id) {
           <div class="contenedor-imagenes">
             ${imagenesHTML}
           </div>
-          <h3>Videos</h3><small>(pueden no cargar, la API no te da lista es uno por uno y su ratelimiting es molesto) Aparecen con delay, se fetchean dia por dia.<br>Es posible que no carguen bien los embeds y tengas que usar "Ver en Youtube", pero los IDS son correctos y tocar ese boton te envia a la pagina de youtube a ver el video correcto. Supuestamente los embeds no cargan por el copyright de los highlights.</small>
+          <h3>Videos de hasta hace 4 dias</h3><small>(pueden no cargar, la API no te da lista es uno por uno y su ratelimiting es molesto) Aparecen con delay, se fetchean dia por dia.<br>Es posible que no carguen bien los embeds y tengas que usar "Ver en Youtube", pero los IDS son correctos y tocar ese boton te envia a la pagina de youtube a ver el video correcto. Supuestamente los embeds no cargan por el copyright de los highlights.</small>
         </div>    `;
-  for (const dia of [24, 48, 72, 96, 120, 144, 168, 192, 216, 240, 264, 288, 312, 336]) {
+  for (const dia of [0, 24, 48, 72, 96]) {
     let fecha = new Date();
     fecha.setHours(fecha.getHours() - dia);
     const string = fecha.toISOString().slice(0, 10);
     await delay(1000);
     const highlightsFetch = await fetch("https://www.thesportsdb.com/api/v1/json/123/eventshighlights.php?d=" + string + "&l=" + liga.idLeague);
     const highlights = await highlightsFetch.json();
+    if (!highlightsFetch.ok) {
+      alert("Error " + highlightsFetch.status);
+
+    }
     if (highlights.tvhighlights) {
     highlights.tvhighlights.forEach(highlight => {
       let partes;
@@ -140,7 +203,13 @@ async function detallesLiga(id) {
                                 `
       detalles.insertAdjacentHTML('beforeend', iframeHTML);
       })
-
+      } else {
+        const diasPasados = dia / 24;
+        if (diasPasados > 0){
+        detalles.insertAdjacentHTML('beforeend', `<p>Ningun video hace ${diasPasados} dias.</p>`);
+        } else {
+          detalles.insertAdjacentHTML('beforeend', `<p>Ningun video hoy.</p>`);
+        }
       }
   }
 
